@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class Post {
     private  Long id;
     private  String content;
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
     private Long userId;
 
 //    public Post(Long id, String content, UserDTO user){
@@ -15,10 +15,10 @@ public class Post {
 //        this.user = user;
 //    }
 
-    public Post(Long id, String content, LocalDateTime createAt, Long userId){
+    public Post(Long id, String content, LocalDateTime createdAt, Long userId){
         this.id = id;
         this.content = content;
-        this.createAt = createAt;
+        this.createdAt = createdAt;
         this.userId = userId;
     }
 
@@ -30,8 +30,8 @@ public class Post {
         return content;
     }
 
-    public LocalDateTime getCreateAt() {
-        return createAt;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
     public Long getUserId() {

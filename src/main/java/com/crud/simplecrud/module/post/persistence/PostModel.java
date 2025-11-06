@@ -8,7 +8,8 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@Entity(name = "tb_posts")
+@Table(name = "tb_posts")
+@Entity(name = "PostModel")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -23,7 +24,7 @@ public class PostModel {
     private String content;
 
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createAt;
+    private LocalDateTime createdAt;
 
     @Column(name = "user_id", nullable = false)
     private Long userId;
@@ -32,6 +33,6 @@ public class PostModel {
         this.id = null;
         this.content = content;
         this.userId = userId;
-        this.createAt = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
     }
 }

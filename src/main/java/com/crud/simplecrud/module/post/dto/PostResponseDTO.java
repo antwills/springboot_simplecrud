@@ -12,6 +12,6 @@ public record PostResponseDTO(
         @JsonProperty("user_id") Long userId
 ) {
     public PostResponseDTO(Post post){
-        this(post.getId(), post.getContent(), post.getCreateAt(), post.getUserId());
+        this(post.getId(), post.getContent(), post.getCreatedAt(), post.getUserId());
     }
 }

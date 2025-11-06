@@ -32,8 +32,8 @@ public class PostController {
     }
 
     @GetMapping("/users/{userId}")
-    public List<PostDTO> getPostsByUserId(@PathVariable Long userId){
-
+    public List<PostDTO> getByUserId(@PathVariable Long userId){
+        return this.postService.getByUserId(userId);
     }
 
     @PostMapping

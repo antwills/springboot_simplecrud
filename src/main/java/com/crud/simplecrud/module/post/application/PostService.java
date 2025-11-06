@@ -6,6 +6,7 @@ import com.crud.simplecrud.module.post.domain.Post;
 import com.crud.simplecrud.module.post.dto.CreatePostDTO;
 import com.crud.simplecrud.module.post.util.PostMapper;
 import com.crud.simplecrud.module.user.api.UserApi;
+import com.crud.simplecrud.shared.domain.PostDTO;
 import com.crud.simplecrud.shared.domain.UserDTO;
 import com.crud.simplecrud.shared.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,13 @@ public class PostService {
 
     public Optional<Post> getBydId(Long id){
         return this.postRepository.findById(id).map(postMapper::toDomain);
+    }
+
+    public List<PostDTO> getByUserId(Long userId){
+        return this.postRepository.findByUserId(userId);
+//                .stream()
+//                .map(postMapper::toDto)
+//                .toList();
     }
 
     public Post create(CreatePostDTO dto){

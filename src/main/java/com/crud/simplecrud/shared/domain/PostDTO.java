@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public record PostDTO(
         Long id,
         String content,
-        LocalDateTime createAt,
+        LocalDateTime createdAt,
         Long userId
 ) {
 }
