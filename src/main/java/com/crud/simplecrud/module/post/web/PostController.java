@@ -31,11 +31,6 @@ public class PostController {
         return this.postService.getBydId(id);
     }
 
-    @GetMapping("/users/{userId}")
-    public List<PostDTO> getByUserId(@PathVariable Long userId){
-        return this.postService.getByUserId(userId);
-    }
-
     @PostMapping
     public Post createPost(@Valid @RequestBody CreatePostDTO dto){
         return this.postService.create(dto);

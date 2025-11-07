@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Component
 public interface UserApi {
     public Optional<UserDTO> getById(Long id);
 }

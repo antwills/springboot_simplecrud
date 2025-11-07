@@ -1,5 +1,6 @@
 package com.crud.simplecrud.module.post.application;
 
+import com.crud.simplecrud.module.post.api.PostApi;
 import com.crud.simplecrud.module.post.persistence.PostModel;
 import com.crud.simplecrud.module.post.persistence.PostRepository;
 import com.crud.simplecrud.module.post.domain.Post;
@@ -16,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PostService {
+public class PostService implements PostApi {
     private final PostRepository postRepository;
     private final PostMapper postMapper;
     private final UserApi userApi;
@@ -42,9 +43,6 @@ public class PostService {
 
     public List<PostDTO> getByUserId(Long userId){
         return this.postRepository.findByUserId(userId);
-//                .stream()
-//                .map(postMapper::toDto)
-//                .toList();
     }
 
     public Post create(CreatePostDTO dto){

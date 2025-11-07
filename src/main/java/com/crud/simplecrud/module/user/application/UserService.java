@@ -1,12 +1,14 @@
 package com.crud.simplecrud.module.user.application;
 
+import com.crud.simplecrud.module.post.api.PostApi;
+import com.crud.simplecrud.module.user.api.UserApi;
 import com.crud.simplecrud.module.user.persistence.UserModel;
 import com.crud.simplecrud.module.user.persistence.UserRepository;
-import com.crud.simplecrud.module.user.api.UserApi;
 import com.crud.simplecrud.module.user.domain.User;
 import com.crud.simplecrud.module.user.dto.CreateUserDTO;
 import com.crud.simplecrud.module.user.dto.UpdateUserDTO;
 import com.crud.simplecrud.module.user.util.UserMapper;
+import com.crud.simplecrud.shared.domain.PostDTO;
 import com.crud.simplecrud.shared.domain.UserDTO;
 import com.crud.simplecrud.shared.exception.BusinessException;
 import com.crud.simplecrud.shared.exception.ConflictException;
@@ -21,11 +23,13 @@ import java.util.Optional;
 public class UserService implements UserApi {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final PostApi postApi;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserMapper userMapper){
+    public UserService(UserRepository userRepository, UserMapper userMapper, PostApi postApi){
         this.userRepository = userRepository;
         this.userMapper = userMapper;
+        this.postApi = postApi;
     }
 
     public List<UserDTO> getAll(){
@@ -39,6 +43,10 @@ public class UserService implements UserApi {
         Optional<UserModel> userModel = userRepository.findById(id);
 
         return userModel.map(userMapper::toDto);
+    }
+
+    public List<PostDTO> getPostsByUserId(Long userId){
+        return this.postApi.getByUserId(userId);
     }
 
     public UserDTO create(CreateUserDTO dto){

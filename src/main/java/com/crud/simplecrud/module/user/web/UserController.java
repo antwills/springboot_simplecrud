@@ -3,6 +3,7 @@ package com.crud.simplecrud.module.user.web;
 import com.crud.simplecrud.module.user.application.UserService;
 import com.crud.simplecrud.module.user.dto.CreateUserDTO;
 import com.crud.simplecrud.module.user.dto.UpdateUserDTO;
+import com.crud.simplecrud.shared.domain.PostDTO;
 import com.crud.simplecrud.shared.domain.UserDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,11 @@ public class UserController {
     @GetMapping("/{id}")
     public Optional<UserDTO> findUser(@PathVariable Long id){
         return userService.getById(id);
+    }
+
+    @GetMapping("/{id}/posts")
+    public List<PostDTO> getByUserId(@PathVariable Long id){
+        return this.userService.getPostsByUserId(id);
     }
 
     @PostMapping

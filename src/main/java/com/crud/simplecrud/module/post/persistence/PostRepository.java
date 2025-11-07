@@ -1,6 +1,5 @@
 package com.crud.simplecrud.module.post.persistence;
 
-import com.crud.simplecrud.module.post.domain.Post;
 import com.crud.simplecrud.shared.domain.PostDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
