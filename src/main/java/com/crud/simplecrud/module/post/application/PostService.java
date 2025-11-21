@@ -42,7 +42,10 @@ public class PostService implements PostApi {
     }
 
     public List<PostDTO> getByUserId(Long userId){
-        return this.postRepository.findByUserId(userId);
+        return this.postRepository.findByUserId(userId)
+                .stream()
+                .map(postMapper::toDto)
+                .toList();
     }
 
     public Post create(CreatePostDTO dto){

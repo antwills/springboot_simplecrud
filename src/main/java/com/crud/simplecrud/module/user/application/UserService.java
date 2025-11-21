@@ -23,13 +23,11 @@ import java.util.Optional;
 public class UserService implements UserApi {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private final PostApi postApi;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserMapper userMapper, PostApi postApi){
+    public UserService(UserRepository userRepository, UserMapper userMapper){
         this.userRepository = userRepository;
         this.userMapper = userMapper;
-        this.postApi = postApi;
     }
 
     public List<UserDTO> getAll(){
@@ -43,10 +41,6 @@ public class UserService implements UserApi {
         Optional<UserModel> userModel = userRepository.findById(id);
 
         return userModel.map(userMapper::toDto);
-    }
-
-    public List<PostDTO> getPostsByUserId(Long userId){
-        return this.postApi.getByUserId(userId);
     }
 
     public UserDTO create(CreateUserDTO dto){

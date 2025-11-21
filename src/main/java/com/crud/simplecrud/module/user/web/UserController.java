@@ -33,11 +33,6 @@ public class UserController {
         return userService.getById(id);
     }
 
-    @GetMapping("/{id}/posts")
-    public List<PostDTO> getByUserId(@PathVariable Long id){
-        return this.userService.getPostsByUserId(id);
-    }
-
     @PostMapping
     public UserDTO createUser(@Valid @RequestBody CreateUserDTO dto){
         return userService.create(dto);
