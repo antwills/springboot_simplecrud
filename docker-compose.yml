@@ -1,36 +1,46 @@
-version: '3.8'
-
+# version: '3.8'
+# docker-compose.yml
 services:
-  postgres:
-    image: postgres:17-alpine  # Versão leve e atual (17 é compatível com Java 25)
+  db:
+    image: postgres:16-alpine
     container_name: simplecrud-postgres
+    restart: unless-stopped
     environment:
-      POSTGRES_DB: simplecrud  # Nome do banco (ajuste se diferente)
+      POSTGRES_DB: simplecrud
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 12345678  # Senha (combine com application.properties)
-    ports:
-      - "5432:5432"  # Expõe no host para ferramentas como pgAdmin
+      POSTGRES_PASSWORD: 1234
     volumes:
-      - postgres_data:/var/lib/postgresql/data  # Persiste dados
+      - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d simplecrud"]
-      interval: 10s
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
       timeout: 5s
-      retries: 5
-      start_period: 10s
+      retries: 10
+    networks:
+      - app-network
 
   app:
-    build: .  # Usa o Dockerfile que criamos antes
+    build: .
     container_name: simplecrud-app
+    restart: unless-stopped
     ports:
-      - "8080:8080"  # App na porta 8080
+      - "8080:8080"
     environment:
-      SPRING_PROFILES_ACTIVE: docker  # Opcional: use um perfil para Docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/simplecrud
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 1234
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
     depends_on:
-      postgres:
-        condition: service_healthy  # Espera o DB estar pronto
-    volumes:
-      - .:/app  # Opcional: para hot-reload em dev (monte o src)
+      db:
+        condition: service_healthy
+    # Essa linha é OBRIGATÓRIA para o nome "db" funcionar
+    networks:
+      - app-network
+
+  # Força os dois serviços ficarem na mesma network
+networks:
+  app-network:
+    driver: bridge
 
 volumes:
   postgres_data:  # Volume nomeado para persistência

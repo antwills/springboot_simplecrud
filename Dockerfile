@@ -23,7 +23,7 @@ RUN addgroup -g 1001 -S spring && \
 WORKDIR /app
 
 # Copia o JAR compilado do estágio anterior
-COPY --from=builder /app/target/simplecrud-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=builder /app/target/*.jar /app/app.jar
 
 # Muda a propriedade do JAR para o usuário não-root
 RUN chown spring:spring /app/app.jar
@@ -35,4 +35,4 @@ USER spring:spring
 EXPOSE 8080
 
 # Comando de entrada: executa o JAR com Spring Boot
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
